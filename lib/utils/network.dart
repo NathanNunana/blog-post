@@ -2,6 +2,10 @@ part of blog_utils;
 
 class NetworkUtil {
   final _logger = Logger();
+  static String? _getBearerToken() {
+    return 'super token';
+  }
+
   Dio _getHttpClient() {
     final _dio = Dio(
       BaseOptions(
@@ -12,14 +16,22 @@ class NetworkUtil {
         receiveTimeout: 60 * 1000,
       ),
     );
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          options.headers['Authorization'] = 'Bearer ${_getBearerToken()}';
+          return handler.next(options);
+        },
+      ),
+    );
     return _dio;
   }
 
   Future<Map<String, dynamic>> getReq(String url) async {
     try {
       final _response = await _getHttpClient().get<dynamic>(url);
-      print('network: $_response');
       final _responseBody = _response.data as Map<String, dynamic>;
+      print('network: $_responseBody');
       if (_responseBody.isEmpty) return <String, dynamic>{};
       return _responseBody;
     } on DioError catch (error) {

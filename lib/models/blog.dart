@@ -27,7 +27,9 @@ class BlogData with _$BlogData {
 
 @freezed
 class BlogDataList with _$BlogDataList {
-  const factory BlogDataList(List<BlogData> data) = _BlogDataList;
+  const factory BlogDataList(
+    List<BlogData> data,
+  ) = _BlogDataList;
 
   factory BlogDataList.fromJson(Map<String, dynamic> json) =>
       _$BlogDataListFromJson(json);
