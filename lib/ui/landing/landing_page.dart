@@ -1,5 +1,6 @@
 import 'package:blog_post/models/_index.dart';
 import 'package:blog_post/ui/landing/cubit/fetch_blog_cubit.dart';
+import 'package:blog_post/utils/_index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +21,10 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('BlOg PoSt')),
+      appBar: AppBar(
+        title: const Text('BlOg PoSt'),
+        automaticallyImplyLeading: false,
+      ),
       body: BlocBuilder<BlogCubit, BlogState>(
         builder: (context, state) {
           return state.when(
@@ -37,18 +41,14 @@ class _LandingPageState extends State<LandingPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showDialog<void>(
-            context: context,
-            builder: (_) => buidModalScreen(context),
-          );
+          Navigator.pushNamed(context, BlogRouter.uploadRoute);
+          // showDialog<void>(
+          //   context: context,
+          //   builder: (_) => buidModalScreen(context),
+          // );
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Row(
-          children: const [
-            Icon(Icons.post_add),
-            Text('Post'),
-          ],
-        ),
+        child: const Icon(Icons.post_add),
       ),
     );
   }
@@ -132,33 +132,33 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  Widget buildTextFormField(String placeHolder) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: TextFormField(
-        decoration: InputDecoration(
-          hintText: placeHolder,
-          filled: true,
-          border: const OutlineInputBorder(
-            borderSide: BorderSide.none,
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget buildTextFormField(String placeHolder) {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8),
+  //     child: TextFormField(
+  //       decoration: InputDecoration(
+  //         hintText: placeHolder,
+  //         filled: true,
+  //         border: const OutlineInputBorder(
+  //           borderSide: BorderSide.none,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   // Pop up screen
-  Widget buidModalScreen(BuildContext context) {
-    return SimpleDialog(
-      children: [
-        buildTextFormField('Enter title'),
-        buildTextFormField('Enter description'),
-        buildTextFormField('Enter image url'),
-        const Padding(
-          padding: EdgeInsets.all(8),
-          child: ElevatedButton(onPressed: null, child: Text('Save')),
-        )
-      ],
-    );
-  }
+  // Widget buidModalScreen(BuildContext context) {
+  //   return SimpleDialog(
+  //     children: [
+  //       buildTextFormField('Enter title'),
+  //       buildTextFormField('Enter description'),
+  //       buildTextFormField('Enter image url'),
+  //       const Padding(
+  //         padding: EdgeInsets.all(8),
+  //         child: ElevatedButton(onPressed: null, child: Text('Save')),
+  //       )
+  //     ],
+  //   );
+  // }
 }

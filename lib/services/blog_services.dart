@@ -12,12 +12,11 @@ class BlogService implements BlogApiService {
   final _apiUrl = BlogConfig.instance!.values;
   @override
   Future<List<BlogData>> getPosts() async {
-    // /b/7V5D
-    final _baseUrl = '$_apiUrl/b/B7IO';
+    final _baseUrl = '$_apiUrl/b/SFQ6';
+    // https://jsonkeeper.com/b/SFQ6
     try {
-      // print('https://621ff28ece99a7de194c95b9.mockapi.io/posts');
-      final _res = await _networkUtil.getReq('https://jsonkeeper.com/b/SFQ6');
-      print(_res);
+      final _res = await _networkUtil
+          .getReq('https://623125d705f5f4d40d7466bb.mockapi.io/posts');
       return BlogDataList.fromJson(_res).data;
     } on FormatException {
       throw const Failure(
@@ -33,10 +32,10 @@ class BlogService implements BlogApiService {
     final _apiUrl = BlogConfig.instance!.values;
     try {
       final _res = await _networkUtil.postReq(
-        '$_apiUrl/posts',
-        body: blogPost.toString(),
+        'https://623125d705f5f4d40d7466bb.mockapi.io/posts',
+        body: blogPost,
       );
-      return BlogDataList.fromJson(_res).data;
+      return [BlogData.fromJson(_res)];
     } on FormatException {
       throw const Failure(message: 'Bad response format');
     } catch (error) {

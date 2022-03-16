@@ -15,7 +15,7 @@ class BlogDataDTO with _$BlogDataDTO {
 @freezed
 class BlogData with _$BlogData {
   const factory BlogData({
-    required int id,
+    required String id,
     required String title,
     required String details,
     required String image,

@@ -3,12 +3,17 @@ part of blog_utils;
 class BlogRouter {
   static const decisionRoute = '/';
   static const landingRoute = '/landing';
+  static const uploadRoute = '/upload';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case landingRoute:
         return _route(
           const LandingPage(),
+        );
+      case uploadRoute:
+        return _route(
+          const UploadPost(),
         );
       default:
         return _route(

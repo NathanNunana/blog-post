@@ -19,7 +19,7 @@ class BlogCubit extends Cubit<BlogState> {
     try {
       emit(const BlogState.loading());
       final posts = await blogService.getPosts();
-      log('Here $posts');
+      Logger().d('Posts: $posts');
       emit(BlogState.loaded(posts));
     } on Failure catch (error) {
       emit(BlogState.error(error.message));

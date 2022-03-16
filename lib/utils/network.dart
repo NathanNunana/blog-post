@@ -30,10 +30,9 @@ class NetworkUtil {
   Future<Map<String, dynamic>> getReq(String url) async {
     try {
       final _response = await _getHttpClient().get<dynamic>(url);
-      final _responseBody = _response.data as Map<String, dynamic>;
-      print('network: $_responseBody');
+      final _responseBody = _response.data as List;
       if (_responseBody.isEmpty) return <String, dynamic>{};
-      return _responseBody;
+      return <String, dynamic>{'data': _responseBody};
     } on DioError catch (error) {
       if (DioErrorType.response == error.type) {
         _logger
@@ -49,11 +48,11 @@ class NetworkUtil {
 
   Future<Map<String, dynamic>> postReq(
     String url, {
-    required String body,
+    required dynamic body,
   }) async {
     try {
       final _response = await _getHttpClient().post<dynamic>(url, data: body);
-      final _responseBody = _response.data as Map<String, String>;
+      final _responseBody = _response.data as Map<String, dynamic>;
       if (_responseBody.isEmpty) return <String, dynamic>{};
       return _responseBody;
     } on DioError catch (error) {
