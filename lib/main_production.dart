@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main() {
   BlogConfig(
     values: BlogValues(
-      baseUrl: 'https://621ff28ece99a7de194c95b9.mockapi.io',
+      baseUrl: 'https://623125d705f5f4d40d7466bb.mockapi.io',
     ),
   );
   bootstrap(

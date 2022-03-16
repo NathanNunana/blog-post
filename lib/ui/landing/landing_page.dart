@@ -31,8 +31,10 @@ class _LandingPageState extends State<LandingPage> {
             initial: () => const Center(
               child: Text('Please wait...'),
             ),
-            loading: buildLoadingPage,
-            loaded: (posts) => buildLoadedPosts(posts, context),
+            loading: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            loaded: (posts) => LoadedPosts(posts: posts),
             error: (error) => Center(
               child: Text(error),
             ),
@@ -42,26 +44,19 @@ class _LandingPageState extends State<LandingPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, BlogRouter.uploadRoute);
-          // showDialog<void>(
-          //   context: context,
-          //   builder: (_) => buidModalScreen(context),
-          // );
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: const Icon(Icons.post_add),
       ),
     );
   }
+}
 
-  // Loading page widget
-  Widget buildLoadingPage() {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-
-  // Loaded page widget
-  Widget buildLoadedPosts(List<BlogData> posts, BuildContext context) {
+class LoadedPosts extends StatelessWidget {
+  const LoadedPosts({Key? key, required this.posts}) : super(key: key);
+  final List<BlogData> posts;
+  @override
+  Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return ListView.separated(
       separatorBuilder: (context, index) => const SizedBox(
@@ -131,34 +126,4 @@ class _LandingPageState extends State<LandingPage> {
       ),
     );
   }
-
-  // Widget buildTextFormField(String placeHolder) {
-  //   return Padding(
-  //     padding: const EdgeInsets.all(8),
-  //     child: TextFormField(
-  //       decoration: InputDecoration(
-  //         hintText: placeHolder,
-  //         filled: true,
-  //         border: const OutlineInputBorder(
-  //           borderSide: BorderSide.none,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Pop up screen
-  // Widget buidModalScreen(BuildContext context) {
-  //   return SimpleDialog(
-  //     children: [
-  //       buildTextFormField('Enter title'),
-  //       buildTextFormField('Enter description'),
-  //       buildTextFormField('Enter image url'),
-  //       const Padding(
-  //         padding: EdgeInsets.all(8),
-  //         child: ElevatedButton(onPressed: null, child: Text('Save')),
-  //       )
-  //     ],
-  //   );
-  // }
 }

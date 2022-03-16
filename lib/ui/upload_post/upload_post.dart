@@ -42,9 +42,18 @@ class _UploadPostState extends State<UploadPost> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildTextFormField('Enter title', _titleController),
-                  buildTextFormField('Enter description', _descController),
-                  buildTextFormField('Enter image url', _imgUrlController),
+                  MyTextFormField(
+                    controller: _titleController,
+                    placeHolder: 'Enter title',
+                  ),
+                  MyTextFormField(
+                    controller: _descController,
+                    placeHolder: 'Enter description',
+                  ),
+                  MyTextFormField(
+                    controller: _imgUrlController,
+                    placeHolder: 'Enter image url',
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: ElevatedButton(
@@ -69,15 +78,20 @@ class _UploadPostState extends State<UploadPost> {
       ),
     );
   }
+}
 
-  Widget buildTextFormField(
-    String placeHolder,
-    TextEditingController _controller,
-  ) {
+class MyTextFormField extends StatelessWidget {
+  const MyTextFormField(
+      {Key? key, required this.controller, required this.placeHolder})
+      : super(key: key);
+  final TextEditingController controller;
+  final String placeHolder;
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: TextFormField(
-        controller: _controller,
+        controller: controller,
         decoration: InputDecoration(
           hintText: placeHolder,
           filled: true,

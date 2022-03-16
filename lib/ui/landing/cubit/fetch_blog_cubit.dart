@@ -12,13 +12,16 @@ part 'fetch_blog_state.dart';
 part 'fetch_blog_cubit.freezed.dart';
 
 class BlogCubit extends Cubit<BlogState> {
-  BlogCubit({required this.blogService}) : super(const BlogState.initial());
-  final BlogService blogService;
+  BlogCubit({required BlogService blogService})
+      : super(const BlogState.initial()) {
+    _blogService = blogService;
+  }
+  late final BlogService _blogService;
 
   Future<void> fetchBlogPost() async {
     try {
       emit(const BlogState.loading());
-      final posts = await blogService.getPosts();
+      final posts = await _blogService.getPosts();
       Logger().d('Posts: $posts');
       emit(BlogState.loaded(posts));
     } on Failure catch (error) {

@@ -9,24 +9,26 @@ part 'upload_blog_state.dart';
 
 class UploadCubit extends Cubit<UploadState> {
   UploadCubit({
-    required this.blogService,
-  }) : super(const UploadState.initial());
+    required BlogService blogService,
+  }) : super(const UploadState.initial()) {
+    _blogService = blogService;
+  }
 
-  BlogService blogService;
+  late BlogService _blogService;
   Future<void> uploadPost({
     required String title,
     required String details,
     required String imageUrl,
   }) async {
-    final json = <String, dynamic>{
-      'title': title,
-      'details': details,
-      'image': imageUrl,
-    };
-    final blogPost = BlogDataDTO.fromJson(json);
     try {
       emit(const UploadState.uploading());
-      final posts = await blogService.addItems(blogPost: blogPost);
+      final posts = await _blogService.addItems(
+        blogPost: BlogDataDTO.fromJson(<String, dynamic>{
+          'title': title,
+          'details': details,
+          'image': imageUrl,
+        }),
+      );
       Logger().d('Posts: $posts');
       emit(const UploadState.uploaded());
     } on Failure catch (error) {
