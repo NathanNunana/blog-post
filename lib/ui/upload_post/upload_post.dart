@@ -1,4 +1,3 @@
-import 'package:blog_post/models/_index.dart';
 import 'package:blog_post/ui/upload_post/cubit/upload_blog_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,13 +21,11 @@ class _UploadPostState extends State<UploadPost> {
       if (_titleController.text.isNotEmpty &&
           _descController.text.isNotEmpty &&
           _imgUrlController.text.isNotEmpty) {
-        final json = {
-          'title': _titleController.text,
-          'details': _descController.text,
-          'image': _imgUrlController.text,
-        };
-        final blogPost = BlogDataDTO.fromJson(json);
-        context.read<UploadCubit>().uploadPost(blogPost: blogPost);
+        context.read<UploadCubit>().uploadPost(
+              title: _titleController.text,
+              details: _descController.text,
+              imageUrl: _imgUrlController.text,
+            );
       } else {
         Logger().d('Fill out the input fields!');
       }

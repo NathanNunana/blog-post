@@ -14,8 +14,16 @@ class UploadCubit extends Cubit<UploadState> {
 
   BlogService blogService;
   Future<void> uploadPost({
-    required BlogDataDTO blogPost,
+    required String title,
+    required String details,
+    required String imageUrl,
   }) async {
+    final json = <String, dynamic>{
+      'title': title,
+      'details': details,
+      'image': imageUrl,
+    };
+    final blogPost = BlogDataDTO.fromJson(json);
     try {
       emit(const UploadState.uploading());
       final posts = await blogService.addItems(blogPost: blogPost);
