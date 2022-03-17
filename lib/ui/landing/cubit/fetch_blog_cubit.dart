@@ -1,6 +1,3 @@
-// Package imports
-import 'dart:developer';
-
 // Project imports
 import 'package:bloc/bloc.dart';
 import 'package:blog_post/models/_index.dart';

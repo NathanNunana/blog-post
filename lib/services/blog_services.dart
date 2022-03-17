@@ -31,7 +31,9 @@ class BlogService implements BlogApiService {
     try {
       final _res = await _networkUtil.postReq(
         _apiUrl,
-        body: blogPost,
+        body: jsonEncode(
+          blogPost.toJson(),
+        ),
       );
       return [BlogData.fromJson(_res)];
     } on FormatException {

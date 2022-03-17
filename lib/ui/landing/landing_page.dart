@@ -43,7 +43,8 @@ class _LandingPageState extends State<LandingPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, BlogRouter.uploadRoute);
+          Navigator.pushNamed(context, BlogRouter.uploadRoute)
+              .then<dynamic>((_) => context.read<BlogCubit>().fetchBlogPost());
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: const Icon(Icons.post_add),

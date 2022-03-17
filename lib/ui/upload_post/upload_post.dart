@@ -15,25 +15,29 @@ class _UploadPostState extends State<UploadPost> {
   final TextEditingController _descController = TextEditingController();
   final TextEditingController _imgUrlController = TextEditingController();
 
+  void submitData() {
+    if (_titleController.text.isNotEmpty &&
+        _descController.text.isNotEmpty &&
+        _imgUrlController.text.isNotEmpty) {
+      context.read<UploadCubit>().uploadPost(
+            title: _titleController.text,
+            details: _descController.text,
+            imageUrl: _imgUrlController.text,
+          );
+    } else {
+      Logger().d('Fill out the input fields!');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    void submitData() {
-      if (_titleController.text.isNotEmpty &&
-          _descController.text.isNotEmpty &&
-          _imgUrlController.text.isNotEmpty) {
-        context.read<UploadCubit>().uploadPost(
-              title: _titleController.text,
-              details: _descController.text,
-              imageUrl: _imgUrlController.text,
-            );
-      } else {
-        Logger().d('Fill out the input fields!');
-      }
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Upload'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(true),
+        ),
       ),
       body: BlocBuilder<UploadCubit, UploadState>(
         builder: (context, state) {

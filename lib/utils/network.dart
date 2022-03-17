@@ -48,10 +48,13 @@ class NetworkUtil {
 
   Future<Map<String, dynamic>> postReq(
     String url, {
-    required dynamic body,
+    required String body,
   }) async {
     try {
-      final _response = await _getHttpClient().post<dynamic>(url, data: body);
+      final _response = await _getHttpClient().post<dynamic>(
+        url,
+        data: body,
+      );
       final _responseBody = _response.data as Map<String, dynamic>;
       if (_responseBody.isEmpty) return <String, dynamic>{};
       return _responseBody;

@@ -23,11 +23,11 @@ class UploadCubit extends Cubit<UploadState> {
     try {
       emit(const UploadState.uploading());
       final posts = await _blogService.addItems(
-        blogPost: BlogDataDTO.fromJson(<String, dynamic>{
-          'title': title,
-          'details': details,
-          'image': imageUrl,
-        }),
+        blogPost: BlogDataDTO(
+          title: title,
+          details: details,
+          image: imageUrl,
+        ),
       );
       Logger().d('Posts: $posts');
       emit(const UploadState.uploaded());
